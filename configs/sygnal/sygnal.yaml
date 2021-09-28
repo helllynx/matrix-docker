@@ -1,0 +1,68 @@
+apps:
+  im.vector.app:
+    api_key: 
+    type: gcm
+  'im.vector.app:':
+    api_key: 
+    type: gcm
+database:
+  args:
+    dbfile: sygnal.db
+  name: sqlite3
+http:
+  bind_addresses:
+  - 0.0.0.0
+  port: 5001
+log:
+  access:
+    x_forwarded_for: false
+  setup:
+    disable_existing_loggers: false
+    formatters:
+      normal:
+        format: '%(asctime)s [%(process)d] %(levelname)-5s %(name)s %(message)s'
+    handlers:
+      file:
+        class: logging.handlers.WatchedFileHandler
+        filename: ./sygnal.log
+        formatter: normal
+      stderr:
+        class: logging.StreamHandler
+        formatter: normal
+        stream: ext://sys.stderr
+      stdout:
+        class: logging.StreamHandler
+        formatter: normal
+        stream: ext://sys.stdout
+    loggers:
+      sygnal:
+        handlers:
+        - stderr
+        - file
+        propagate: false
+      sygnal.access:
+        handlers:
+        - stdout
+        level: DEBUG
+        propagate: false
+    root:
+      handlers:
+      - stderr
+      level: DEBUG
+    version: 1
+metrics:
+  opentracing:
+    enabled: false
+    implementation: jaeger
+    jaeger:
+      logging: true
+      sampler:
+        param: 1
+        type: const
+    service_name: sygnal
+  prometheus:
+    address: 127.0.0.1
+    enabled: false
+    port: 8000
+  sentry:
+    enabled: false

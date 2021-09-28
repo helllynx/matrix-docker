@@ -13,7 +13,7 @@
 # e.g. matrix.org, localhost:8080, etc.
 # This is also the last part of your UserID.
 #
-server_name: "matrix.zybc.pro"
+server_name: "example.org"
 
 # When running as a daemon, the file to store the pid in
 #
@@ -35,7 +35,7 @@ pid_file: /data/homeserver.pid
 # use synapse with a reverse proxy, this should be the URL to reach
 # synapse via the proxy.
 #
-public_baseurl: https://matrix.zybc.pro/
+public_baseurl: https://example.org/
 
 # Set the soft limit on the number of file descriptors synapse can use
 # Zero is used to indicate synapse should set the soft limit to the
@@ -415,11 +415,11 @@ retention:
 # instance, if using certbot, use `fullchain.pem` as your certificate,
 # not `cert.pem`).
 #
-#tls_certificate_path: "/data/matrix.zybc.pro.tls.crt"
+#tls_certificate_path: "/data/example.org.tls.crt"
 
 # PEM-encoded private key for TLS
 #
-#tls_private_key_path: "/data/matrix.zybc.pro.tls.key"
+#tls_private_key_path: "/data/example.org.tls.key"
 
 # Whether to verify TLS server certificates for outbound federation requests.
 #
@@ -588,17 +588,26 @@ acme:
 # (0.0.0.0 and :: are always blacklisted, whether or not they are explicitly
 # listed here, since they correspond to unroutable addresses.)
 #
-federation_ip_range_blacklist:
-  - '127.0.0.0/8'
+# federation_ip_range_blacklist:
+  # - '127.0.0.0/8'
+  # - '10.0.0.0/8'
+  # - '172.16.0.0/12'
+  # - '192.168.0.0/16'
+  # - '100.64.0.0/10'
+  # - '169.254.0.0/16'
+  # - '::1/128'
+  # - 'fe80::/64'
+  # - 'fc00::/7'
+
+
+ip_range_whitelist:
+  - '127.0.0.1/8'
+  - '0.0.0.0/8'
   - '10.0.0.0/8'
   - '172.16.0.0/12'
   - '192.168.0.0/16'
   - '100.64.0.0/10'
   - '169.254.0.0/16'
-  - '::1/128'
-  - 'fe80::/64'
-  - 'fc00::/7'
-
 
 ## Caching ##
 
@@ -693,7 +702,7 @@ database:
   name: psycopg2
   args:
       user: synapse
-      password: password
+      password: VJL4zB2mdyB0UE6A
       host: localhost
       database: synapse
       cp_min: 5
@@ -704,7 +713,7 @@ database:
 # A yaml python logging config file as described by
 # https://docs.python.org/3.7/library/logging.config.html#configuration-dictionary-schema
 #
-log_config: "/data/matrix.zybc.pro.log.config"
+log_config: "/data/example.org.log.config"
 
 
 ## Ratelimiting ##
@@ -996,15 +1005,15 @@ url_preview_accept_language:
 # The public URIs of the TURN server to give to clients
 #
 turn_uris: [
-  'turns:matrix.zybc.pro?transport=udp',
-  'turns:matrix.zybc.pro?transport=tcp',
-  'turn:matrix.zybc.pro?transport=udp',
-  'turn:matrix.zybc.pro?transport=tcp'
+  'turns:example.org?transport=udp',
+  'turns:example.org?transport=tcp',
+  'turn:example.org?transport=udp',
+  'turn:example.org?transport=tcp'
 ]
 
 # The shared secret used to compute passwords for the TURN server
 #
-turn_shared_secret: "turn_secret"
+turn_shared_secret: "Ib6TjevilUUdMUNBaFFH6QAkH9F2eE4BA3bHudlbG8fGgsBvjIL8LC7HdXDZr2sb"
 
 # The Username and password if the TURN server needs them and
 # does not use a token
@@ -1364,7 +1373,7 @@ form_secret: "Tda@C0.WT*RWe4v&2~uVM*TU+s+N5ol_TY8t*cpuBBEur:,g~="
 
 # Path to the signing key to sign messages with
 #
-signing_key_path: "/data/matrix.zybc.pro.signing.key"
+signing_key_path: "/data/example.org.signing.key"
 
 # The keys that the server used to sign messages with but won't use
 # to sign new messages.
@@ -1963,7 +1972,7 @@ email:
   # app_name defines the default value for '%(app)s' in notif_from and email
   # subjects. It defaults to 'Matrix'.
   #
-  # app_name: matrix.zybc.pro
+  # app_name: example.org
 
   # Uncomment the following to enable sending emails for messages that the user
   # has missed. Disabled by default.
@@ -2139,8 +2148,8 @@ password_providers:
 # because it is loaded by the app. iPhone, however will send a
 # notification saying only that a message arrived and who it came from.
 #
-#push:
-#  include_content: true
+push:
+ include_content: true
 
 
 # Spam checkers are third-party modules that can block specific actions

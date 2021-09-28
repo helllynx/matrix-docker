@@ -1,10 +1,15 @@
 #!/bin/bash
+if [ -f .env ]
+then
+  export $(cat .env | sed 's/#.*//g' | xargs)
+fi
+
 set -e
 
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
     CREATE USER coturn;
     CREATE DATABASE coturn;
-    ALTER USER coturn WITH PASSWORD 'password';
+    ALTER USER coturn WITH PASSWORD '${COTURN_PASSWORD}';
     GRANT ALL PRIVILEGES ON DATABASE coturn TO coturn;
 EOSQL
 
