@@ -1,9 +1,9 @@
 apps:
-  im.vector.app:
-    api_key: 
+  com.aurams.aura.android:
+    api_key: AAAAzOyv8b8:APA91bGkS2nGU0I9qXh3kKGeSiucSP_Gi6dnJo6D27pxWz2ddB1cetCA8rTzAr4oYpYmsnwkcs5gVpiIyiXP1zBoGqvvCGfTjqiHHGd-_TUnCkE4LhDuYb8ihoKZ8c1K_KS2hIjCkzn5
     type: gcm
-  'im.vector.app:':
-    api_key: 
+  'com.aurams.aura.android:':
+    api_key: AAAAzOyv8b8:APA91bGkS2nGU0I9qXh3kKGeSiucSP_Gi6dnJo6D27pxWz2ddB1cetCA8rTzAr4oYpYmsnwkcs5gVpiIyiXP1zBoGqvvCGfTjqiHHGd-_TUnCkE4LhDuYb8ihoKZ8c1K_KS2hIjCkzn5
     type: gcm
 database:
   args:
