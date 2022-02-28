@@ -126,7 +126,7 @@ def get_env_data_as_dict(path: str) -> dict:
                     not (line.startswith('#') or len(line.strip()) == 0))
 
 
-class AuraBackend:
+class MatrixBackendStack:
 
     def __init__(self):
         self.synapse_db_password = generate_password()
@@ -322,9 +322,9 @@ class AuraBackend:
                 log_debug(exc)
 
         # TODO replace api_key with env variable
-        config['apps']['com.aurams.aura.android:'] = {
+        config['apps']['im.vector.app.android:'] = {
             'type': 'gcm',
-            'api_key': 'AAAAzOyv8b8:APA91bGkS2nGU0I9qXh3kKGeSiucSP_Gi6dnJo6D27pxWz2ddB1cetCA8rTzAr4oYpYmsnwkcs5gVpiIyiXP1zBoGqvvCGfTjqiHHGd-_TUnCkE4LhDuYb8ihoKZ8c1K_KS2hIjCkzn5',
+            'api_key': '',
         }
         self.write_progress('Create sygnal.yaml file')
         with open('configs/sygnal/sygnal.yaml', 'w+') as file:
@@ -439,7 +439,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     group = parser.add_mutually_exclusive_group()
     group.add_argument('-u', '--update', action='store_true', help='Update service containers')
-    group.add_argument('-i', '--install', action='store_true', help='Install Aura Backend')
+    group.add_argument('-i', '--install', action='store_true', help='Install Matrix Backend')
     group.add_argument('-r', '--restart', action='store_true', help='Restart all services')
     group.add_argument('-rm', '--remove', action='store_true', help='Remove all backend data and restore to factory settings')
     group.add_argument('--stop', action='store_true', help='Stop all services')
@@ -454,10 +454,10 @@ if __name__ == '__main__':
     if not (args.update or args.install or args.restart or args.remove or args.stop or args.start):
         parser.error('Action required, add any option to use. You can see options by adding -h (--help) flag')
 
-    installer = AuraBackend()
+    installer = MatrixBackendStack()
 
     if args.install:
-        show_message('Hi! This script will install your Aura backend. For now it only capable with Ubuntu Linux',
+        show_message('Hi! This script will install your Matrix backend. For now it only capable with Ubuntu Linux',
                      title=True)
 
         if not args.no_questions:
@@ -486,3 +486,4 @@ if __name__ == '__main__':
     
     if args.start:
         installer.start()
+        
