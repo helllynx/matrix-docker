@@ -385,7 +385,6 @@ class MatrixBackendStack:
     def update(self):
         print('Update initiated')
         print('-------------------------------')
-        #services = ['api-gateway', 'api-user', 'api-profile', 'api-registry', 'api-reward']
         out = run_shell_command(self.base_docker_command + ['rm', '-sf'])
         log_debug(out)
         out = run_shell_command(self.base_docker_command + ['pull'])

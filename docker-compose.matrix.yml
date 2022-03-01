@@ -29,7 +29,7 @@ services:
       - "./configs/postgres/init-user-db.sh:/docker-entrypoint-initdb.d/init-user-db.sh"
 
   synapse:
-    image: "matrixdotorg/synapse:v1.44.0"
+    image: "matrixdotorg/synapse:v1.53.0"
     container_name: "synapse"
     network_mode: "host"
     restart: "unless-stopped"
@@ -46,7 +46,7 @@ services:
     depends_on: [ "postgresql-synapse", "proxy" ]
 
   sygnal:
-    image: "matrixdotorg/sygnal:v0.9.3"
+    image: "matrixdotorg/sygnal:v0.11.0"
     container_name: "sygnal"
     network_mode: "host"
     restart: "unless-stopped"
