@@ -1,68 +1,41 @@
-# Matrix Synapse
+# Aura Project
 
-## Requrements
+## Минимальные требования (приблизительные)
 
-### DNS
+Для клиентской базы < 200
 
-Add next records:
+* CPU: 8 core
+* RAM: 16 GB
+* SSD: 256 GB
+* SWAP: 32 GB
+
+
+## Установка
+
+### Настройка DNS
+
+Для корректной работы бекенда необходимо настроить следующие записи `DNS`:
 
 ```
-A matrix {server ip} 
+A matrix {server ip}
+A meet {server ip}
 SRV _matrix._tcp 10 0 8448 {server ip}
 ```
 
-### SSL certs
+### Установка Backend
 
-For now synapse not support selfsigned certs. Need to use something like letsencrypt.
-
-For manual setup user this isntruction https://certbot.eff.org/lets-encrypt/ubuntufocal-other
-
-### Run
-
-For run matrix synapse server run:
-
-```bash
-docker-compose up -d
-```
-
-If new configuration needed, remove `data` and `postgresdata` folders and run:
-
-```bash
-docker-compose run --rm synapse generate
-```
-
-### Config
-
-Can be added after generation:
-
-```yaml
-public_baseurl: https://example.org/
-
-ip_range_whitelist:
-  - '127.0.0.1/8'
-  - '0.0.0.0/8'
-  - '10.0.0.0/8'
-  - '172.16.0.0/12'
-  - '192.168.0.0/16'
-  - '100.64.0.0/10'
-  - '169.254.0.0/16'
-```
-
-Don't forget to edit `.env` file.
-
-### Bugs
-
-After generate config, need to fix logs config
-
+Для установки выполнить
 
 ```
-handlers:
-    file:
-        class: logging.handlers.TimedRotatingFileHandler
-        formatter: precise
-        filename: /homeserver.log
+$ python3 aura.py -i
+
+####### Hi! This script will install your Aura backend. For now it only capable with Ubuntu Linux #######
+
+Do you want to start installation? [Y/n]: Y
+Please enter next mandatory information:
+Domain for services: example.com
+Confirm Domain for services: example.com
+Email: test@example.com
+Confirm Email: test@example.com
 ```
-
-`filename` to `/data/homeserver.log`
-
-
+Скрипт спросит домен и почту для генерации сертификатов `LetsEncrypt`, установит `docker` и развернет сервисы.

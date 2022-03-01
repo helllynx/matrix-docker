@@ -1,0 +1,70 @@
+version: "3.3"
+
+services:
+  # Frontend
+  web:
+    image: "jitsi/web:stable-6173"
+    restart: "unless-stopped"
+    env_file:
+      - "./configs/env/jitsi.env"
+    ports:
+#      - "8888:80"
+      - "44443:443"
+    volumes:
+      - "./configs/jitsi//web:/config:Z"
+      - "./configs/jitsi//transcripts:/usr/share/jitsi-meet/transcripts:Z"
+    networks:
+      meet.jitsi:
+
+
+  # XMPP server
+  prosody:
+    image: "jitsi/prosody:stable-6173"
+    restart: "unless-stopped"
+    env_file:
+      - "./configs/env/jitsi.env"
+    expose:
+      - "5222"
+      - "5347"
+      - "5280"
+    volumes:
+      - "./configs/jitsi/prosody/config:/config:Z"
+      - "./configs/jitsi/prosody/prosody-plugins-custom:/prosody-plugins-custom:Z"
+    networks:
+      meet.jitsi:
+        aliases:
+          - "xmpp.meet.jitsi"
+
+  # Focus component
+  jicofo:
+    image: "jitsi/jicofo:stable-6173"
+    restart: "unless-stopped"
+    env_file:
+      - "./configs/env/jitsi.env"
+    volumes:
+      - "./configs/jitsi/jicofo:/config:Z"
+    depends_on: [ "prosody" ]
+    networks:
+      meet.jitsi:
+
+  # Video bridge
+  jvb:
+    image: "jitsi/jvb:stable-6173"
+    restart: "unless-stopped"
+    env_file:
+      - "./configs/env/jitsi.env"
+    volumes:
+      - "./configs/jitsi/jvb:/config:Z"
+    ports:
+      - "8000:8000"
+      - "10000:10000/udp"
+      - "4443:4443"
+    depends_on: [ "prosody" ]
+    networks:
+      meet.jitsi:
+        aliases:
+          - "jvb.meet.jitsi"
+
+# Custom network so all services can communicate using a FQDN
+networks:
+  meet.jitsi:
